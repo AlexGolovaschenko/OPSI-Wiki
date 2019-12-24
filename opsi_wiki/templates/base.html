@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>OPSI Wiki</title>
-	<link rel="shortcut icon" type="image/png" href="{% static 'img/owen.png' %}" />
+	<link rel="shortcut icon" href="{% static 'img/owen.ico' %}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- w3.css style -->	
@@ -12,20 +12,20 @@
 	<!-- my style -->	
 	<link rel="stylesheet" href="{% static 'css/base_style.css' %}">
 </head>
-<body>
+<body class="w3-light-grey">
 	<!-- navbar -->	
 	<nav class="w3-bar w3-blue-gray">
-		<div class="w3-content">
+		<div class="w3-content" style="min-width: 1200px;">
 			<!-- left side -->	
-			<a class="w3-bar-item w3-button" href="{% url 'home' %}">Home</a>
+			<a class="w3-bar-item w3-button" href="{% url 'home' %}">Главная</a>
 			<!-- right side -->	
-			<a class="w3-bar-item w3-button w3-right" href="#">Login</a>
-			<a class="w3-bar-item w3-button w3-right" href="{% url 'about' %}">About</a>
+			<a class="w3-bar-item w3-button w3-right" href="#">Вход</a>
+			<a class="w3-bar-item w3-button w3-right" href="{% url 'about' %}">О проекте</a>
 		</div>
 	</nav>
 
 	<!-- content -->	
-	<div class="w3-content w3-container">
+	<div class="w3-content w3-container w3-white w3-card" style="min-height: 900px; max-width: 1200px;">
 		{% block content %} {% endblock %}
 	</div>
 </body>
