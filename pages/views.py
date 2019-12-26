@@ -26,7 +26,7 @@ def circuit_engineer_pages_list(request):
 
 def _render_pages_list(request, category):
 	category = get_object_or_404(Category, name=category)
-	pages = get_list_or_404(Page, category=category)
+	pages = get_list_or_404(Page.objects.order_by('topic__order'), category=category)
 
 	topics = {}
 	for p in pages:

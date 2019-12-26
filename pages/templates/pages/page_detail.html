@@ -11,7 +11,7 @@
 		{% endfor %}
 
 
-		{% if page.link_set %}
+		{% if page.link_set.all %}
 			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
 			<ul style="padding-left: 18px; ">
 				{% for link in page.link_set.all %}
@@ -21,13 +21,13 @@
 		{% endif %}
 		
 
-		{% if page.reference_set %}
-			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
+		{% if page.reference_set.all %}
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Литература</h1>
 			
 			<ol style="padding-left: 20px;">
 				{% for ref in page.reference_set.all %}
 				<li>
-					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}</a>
+					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}.</a>
 					<span>{{ ref.author }}.</span>
 					<span>{{ ref.pub_date }}.</span>
 				</li>
