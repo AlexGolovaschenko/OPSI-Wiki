@@ -4,5 +4,9 @@ from pages import views
 app_name = 'pages'
 
 urlpatterns = [
-    path('', views.pages_list, name='pages_list'),
+    path('programmer/', views.programmer_pages_list, name='programmer_pages_list'),
+    path('constructor/', views.constructor_pages_list, name='constructor_pages_list'),
+    path('project_manager/', views.project_manager_pages_list, name='project_manager_pages_list'),
+    path('circuit_engineer/', views.circuit_engineer_pages_list, name='circuit_engineer_pages_list'),
+    path('detail/<int:id>', views.page_detail, name='detail'),
 ]

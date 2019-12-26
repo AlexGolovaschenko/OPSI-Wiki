@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<p>hello</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="w3-content">
+		{% for topic, pages in topics.items %}
+			<ul class="w3-ul w3-margin-top">
+				<li class="w3-light-grey w3-text-dark-grey" style="padding-top: 2px; padding-bottom: 2px;">
+					<h2 class="w3-xlarge" >{{ topic }}</h2>
+				</li>
+				{% for p in pages %}
+					<li class="w3-text-indigo w3-hover-text-blue">
+						<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;">{{ p.name }}</a>
+					</li>
+			 	{% endfor %}
+			</ul>
+		{% endfor %}
+	</div>
+{% endblock %}

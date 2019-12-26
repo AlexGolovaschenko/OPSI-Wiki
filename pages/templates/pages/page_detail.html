@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="w3-content w3-text-dark-grey">
+		<h1 class="w3-section w3-padding w3-xlarge w3-border-bottom w3-light-grey w3-center">{{ page.name }}</h1>
+		<p>{{ page.short_description | linebreaks }}</p>
+
+		{% for section in page.section_set.all %}
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">{{ section.headline }}</h1>
+			<p>{{ section.content | linebreaks }}</p>
+		{% endfor %}
+
+
+		{% if page.link_set %}
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
+			<ul style="padding-left: 18px; ">
+				{% for link in page.link_set.all %}
+					<li><a href="{{ link.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{link.name}}</a></li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		
+
+		{% if page.reference_set %}
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
+			
+			<ol style="padding-left: 20px;">
+				{% for ref in page.reference_set.all %}
+				<li>
+					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}</a>
+					<span>{{ ref.author }}.</span>
+					<span>{{ ref.pub_date }}.</span>
+				</li>
+				{% endfor %}
+			</ol>
+		{% endif %}
+
+	</div>
+{% endblock %}
