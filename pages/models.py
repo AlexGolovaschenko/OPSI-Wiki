@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField 
 
 class Category (models.Model):
 	name = models.CharField(verbose_name='Название', max_length=200)
@@ -32,7 +32,7 @@ class Page(models.Model):
 	name = models.CharField(verbose_name='Название', max_length=200)
 	category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
 	topic = models.ForeignKey(Topic, verbose_name='Тема', on_delete=models.CASCADE)	
-	short_description = models.TextField(verbose_name='Краткое описание', blank=True)
+	short_description = RichTextField(verbose_name='Краткое описание', blank=True)
 
 	def __str__(self):
 		return self.name
@@ -45,7 +45,8 @@ class Page(models.Model):
 class Section(models.Model):
 	page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)
 	headline = models.CharField(verbose_name='Оглавление', max_length=200, blank=True)
-	content = models.TextField(verbose_name='Раздел', blank=True)
+	# content = models.TextField(verbose_name='Раздел', blank=True)
+	content = RichTextField(verbose_name='Раздел', blank=True)
 
 	def __str__(self):
 		return self.headline

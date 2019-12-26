@@ -3,11 +3,11 @@
 {% block content %}
 	<div class="w3-content w3-text-dark-grey">
 		<h1 class="w3-section w3-padding w3-xlarge w3-border-bottom w3-light-grey w3-center">{{ page.name }}</h1>
-		<p>{{ page.short_description | linebreaks }}</p>
+		<p>{{ page.short_description | safe }}</p>
 
 		{% for section in page.section_set.all %}
 			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">{{ section.headline }}</h1>
-			<p>{{ section.content | linebreaks }}</p>
+			<p>{{ section.content | safe }}</p>
 		{% endfor %}
 
 

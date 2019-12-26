@@ -13,20 +13,20 @@ class TopicAdmin (admin.ModelAdmin):
 
 class SectionInline (admin.StackedInline):
 	model = Section
-	extra = 0
+	extra = 1
 
 class LinkInline (admin.TabularInline):
 	model = Link
-	extra = 0
+	extra = 1
 	formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows':2, 'cols':40})},
+        models.TextField: {'widget': Textarea(attrs={'rows':1, 'cols':40})},
     }
 
 class ReferenceInline (admin.TabularInline):
 	model = Reference
-	extra = 0
+	extra = 1
 	formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows':2, 'cols':40})},
+        models.TextField: {'widget': Textarea(attrs={'rows':1, 'cols':40})},
     }
 
 class PageAdmin (admin.ModelAdmin):
