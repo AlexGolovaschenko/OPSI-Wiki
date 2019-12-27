@@ -25,21 +25,23 @@ SECRET_KEY = 'yhym+3unt-zk7v^i6l$jo*z5plh8=n2i1=)8y)77l(tnimgn20'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.6.5.124', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
+    'users.apps.UsersConfig', 
     #'grappelli',                  # ckeditor doesn't work with grappelli inline forms on admin page
+    'crispy_forms',  
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'user:login'
