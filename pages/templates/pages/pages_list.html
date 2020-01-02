@@ -2,17 +2,32 @@
 
 {% block content %}
 	<div class="w3-content">
-		{% for topic, pages in topics.items %}
-			<ul class="w3-ul w3-margin-top">
-				<li class="w3-light-grey w3-text-dark-grey" style="padding-top: 2px; padding-bottom: 2px;">
-					<h2 class="w3-xlarge" >{{ topic }}</h2>
-				</li>
-				{% for p in pages %}
-					<li class="w3-text-indigo w3-hover-text-blue">
-						<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;">{{ p.name }}</a>
+		{% if topics %}
+			{% for topic, pages in topics.items %}
+				<ul class="w3-ul w3-margin-top">
+					<li class="w3-light-grey w3-text-dark-grey" style="padding-top: 2px; padding-bottom: 2px;">
+						<h2 class="w3-xlarge" >{{ topic }}</h2>
 					</li>
-			 	{% endfor %}
-			</ul>
-		{% endfor %}
+					{% for p in pages %}
+						<li class="w3-text-indigo w3-hover-text-blue">
+							<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;">{{ p.name }}</a>
+						</li>
+				 	{% endfor %}
+				</ul>
+			{% endfor %}
+
+			<div class="d-flex justify-content-end pt-2">
+				<a class="btn btn-outline-info" href="{% url 'pages:create_page'%}">Создать статью</a>
+			</div>
+
+		{% else %}
+			<p class="pt-4">
+				<span class="text-dark py-2">В данном разделе еще нет статей.</span>
+				<a class="btn btn-outline-info ml-4" href="{% url 'pages:create_page'%}">Создать статью</a>	
+			</p>
+			<hr>
+		{% endif %}
+
+
 	</div>
 {% endblock %}

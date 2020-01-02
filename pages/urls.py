@@ -9,4 +9,5 @@ urlpatterns = [
     path('project_manager/', views.project_manager_pages_list, name='project_manager_pages_list'),
     path('circuit_engineer/', views.circuit_engineer_pages_list, name='circuit_engineer_pages_list'),
     path('detail/<int:id>', views.page_detail, name='detail'),
+    path('new/', views.create_page, name='create_page'),
 ]
