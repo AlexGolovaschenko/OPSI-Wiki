@@ -16,6 +16,7 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>	
 	<!-- my style -->	
 	<link rel="stylesheet" href="{% static 'css/base_style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/rich_text_area.css' %}">
 </head>
 
 
@@ -72,6 +73,17 @@
 	</div>
 	</div>
 
+	<!-- messages -->
+    {% if messages %} 
+    	<div class="container my-0 px-0" style="max-width: 1200px;">
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}} alert-dismissible py-3 my-2">
+          	<button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+          </div>
+        {% endfor %}
+        </div>
+    {% endif %}
 
 	<!-- content -->	
 	<div class="w3-content w3-container w3-white w3-card w3-text-dark-grey" style="min-height: 900px; max-width: 1200px;">

@@ -1,0 +1,27 @@
+.rich-text-area blockquote {
+	font-style: italic;
+    font-family: Georgia, Times, "Times New Roman", serif;
+
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 0;
+    border-left-width: 5px;
+
+    padding: 2px 0;
+    padding-left: 5px;
+    padding-right: 8px;
+
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+
+.rich-text-area blockquote p {
+	margin: 15px;
+    line-height: 1.6;
+    font-size: 1rem;
+    word-wrap: break-word;
+    color: #3a3a3a
+}

@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['10.6.5.124', 'localhost']
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig', 
-    #'grappelli',                  # ckeditor doesn't work with grappelli inline forms on admin page
     'crispy_forms',  
     'ckeditor',
     'django.contrib.admin',

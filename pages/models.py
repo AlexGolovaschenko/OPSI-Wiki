@@ -45,7 +45,6 @@ class Page(models.Model):
 class Section(models.Model):
 	page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)
 	headline = models.CharField(verbose_name='Оглавление', max_length=200, blank=True)
-	# content = models.TextField(verbose_name='Раздел', blank=True)
 	content = RichTextField(verbose_name='Раздел', blank=True)
 
 	def __str__(self):
