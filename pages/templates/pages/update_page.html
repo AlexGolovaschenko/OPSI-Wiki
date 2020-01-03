@@ -8,9 +8,14 @@
 			<fieldset class="form-group">
 				{{ page_form|crispy }}
 				{{ page_form.media }}
+				<hr class="w3-bottombar border-dark">
 				
-				{{ section_form|crispy }}
-				
+				{{section_forms.management_form|crispy}}
+				{% for form in section_forms.forms %}
+					{{ form|crispy }}
+					<hr class="w3-bottombar border-dark">
+				{% endfor %}
+
 			<div class="form-groupe d-flex justify-content-center">
 				<button class="btn btn-outline-success m-2" type="submit">Применить</button>
 				<a class="btn btn-outline-danger m-2" href="{% url 'home' %}">Отмена</a>
