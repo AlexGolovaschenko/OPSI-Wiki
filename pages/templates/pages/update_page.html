@@ -21,12 +21,12 @@
 				    {% endfor %}
 				</div>
 
-				<input type="button" class="btn btn-outline-info" value="Добавить раздел" id="add_more">
+				<input type="button" class="btn btn-outline-primary" value="Добавить раздел" id="add_more">
 				<hr class="w3-bottombar border-dark">
 
 			<div class="form-groupe d-flex justify-content-center">
 				<button class="btn btn-outline-success m-2" type="submit">Применить</button>
-				<a class="btn btn-outline-danger m-2" href="{% url 'home' %}">Отмена</a>
+				<a class="btn btn-outline-danger m-2" href="{% if page_id %} {% url 'pages:detail' page_id %} {% else %} {% url 'home' %} {% endif %}">Отмена</a>
 			</div>
 		</form>					
 	</div>

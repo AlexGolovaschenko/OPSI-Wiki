@@ -9,21 +9,25 @@
 						<h2 class="w3-xlarge" >{{ topic }}</h2>
 					</li>
 					{% for p in pages %}
-						<li class="w3-text-indigo w3-hover-text-blue">
-							<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;">{{ p.name }}</a>
+						<li class="w3-text-indigo w3-hover-text-blue p-1">
+							<div class="d-flex">
+								<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;" class="align-self-center">{{ p.name }}</a>
+								<button class="fas fa-share-alt btn btn-outline-info ml-auto btn-sm" onclick="copyLink('{{ request.scheme }}://{{ request.get_host }}{% url 'pages:detail' p.id %}')" title='Копировать ссылку'></button>
+								<a href="#" class="fas fa-trash-alt btn btn-outline-danger btn-sm ml-3" title='Удалить страницу'></a>
+							</div>
 						</li>
 				 	{% endfor %}
 				</ul>
 			{% endfor %}
 
-			<div class="d-flex justify-content-end mt-2 mb-4">
-				<a class="btn btn-outline-info" href="{% url 'pages:create_page'%}">Создать статью</a>
+			<div class="d-flex justify-content-end mt-4 mb-4">
+				<a class="btn btn-outline-primary" href="{% url 'pages:create_page'%}">Создать статью</a>
 			</div>
 
 		{% else %}
 			<p class="pt-4">
 				<span class="text-dark py-2">В данном разделе еще нет статей.</span>
-				<a class="btn btn-outline-info ml-4" href="{% url 'pages:create_page'%}">Создать статью</a>	
+				<a class="btn btn-outline-primary ml-4" href="{% url 'pages:create_page'%}">Создать статью</a>	
 			</p>
 			<hr>
 		{% endif %}
@@ -31,3 +35,5 @@
 
 	</div>
 {% endblock %}
+
+

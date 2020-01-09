@@ -101,6 +101,7 @@ def update_page(request, id):
 	context = {
 		'page_form': page_form,
 		'section_forms' : section_forms,
+		'page_id': id
 	}
 
 	return render(request, 'pages/update_page.html', context)
