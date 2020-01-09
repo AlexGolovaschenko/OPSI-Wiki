@@ -1,4 +1,6 @@
 from django import forms
+from django import template
+from django.shortcuts import render
 from ckeditor.widgets import CKEditorWidget
 from pages.models import Page, Section
 

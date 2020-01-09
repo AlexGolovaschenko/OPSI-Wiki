@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 	<div class="pt-2">
@@ -11,10 +12,17 @@
 				<hr class="w3-bottombar border-dark">
 				
 				{{section_forms.management_form|crispy}}
-				{% for form in section_forms.forms %}
-					{{ form|crispy }}
-					<hr class="w3-bottombar border-dark">
-				{% endfor %}
+				<div id="form_set">
+				    {% for form in section_forms.forms %}
+					    <div>
+					        {{ form|crispy }}
+					        <hr class="w3-bottombar border-dark">
+					    </div>
+				    {% endfor %}
+				</div>
+
+				<input type="button" class="btn btn-outline-info" value="Добавить раздел" id="add_more">
+				<hr class="w3-bottombar border-dark">
 
 			<div class="form-groupe d-flex justify-content-center">
 				<button class="btn btn-outline-success m-2" type="submit">Применить</button>
@@ -22,4 +30,42 @@
 			</div>
 		</form>					
 	</div>
+
+	<div id="empty_form" style="display:none">
+		<div id="id_form-__prefix__">
+	        {{ section_forms.empty_form|crispy }}
+	        <hr class="w3-bottombar border-dark">
+        </div>
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+	{{ block.super }}
+
+	<script>
+	    $('#add_more').click( function() {
+	        cloneMore('#empty_form' ,'#form_set', 'section_set');
+	    });
+	</script>
+
+	<script>
+		function cloneMore(empty_form, block_to_append, form_prefix) {
+	    	var newElement = $(empty_form).clone(true);
+		    var total = $('#id_' + form_prefix + '-TOTAL_FORMS').val();
+
+		    $(block_to_append).append(newElement.html().replace(/__prefix__/g, total));
+
+	        $('#id_form-' + total).find('textarea').each(function() {
+		      CKEDITOR.replace( $(this).attr('id'), {
+		      	toolbar : [
+					{ name: 'document', items: [ '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] }
+				]});
+		    });
+
+		    total++;
+		    $('#id_' + form_prefix + '-TOTAL_FORMS').val(total);
+	    }
+	</script>
+
 {% endblock %}

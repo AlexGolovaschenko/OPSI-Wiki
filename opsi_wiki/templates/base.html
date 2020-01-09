@@ -16,7 +16,7 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>	
 	<!-- my style -->	
 	<link rel="stylesheet" href="{% static 'css/base_style.css' %}">
-	<link rel="stylesheet" href="{% static 'css/rich_text_area.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fix_rich_text_area.css' %}">
 </head>
 
 
@@ -95,5 +95,7 @@
 	<footer class="bg-dark" style="min-height: 70px">
 		<p class="text-secondary text-center p-2">Вопросы и предложения по сайту отрправляйте на почту: <span class="text-primary">a.golovaschenko@owen.ua</span></p>
 	</footer>
+
+	{% block scripts %} {% endblock %}
 </body>
 </html>
