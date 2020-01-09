@@ -58,9 +58,8 @@
 
 	        $('#id_form-' + total).find('textarea').each(function() {
 		      CKEDITOR.replace( $(this).attr('id'), {
-		      	toolbar : [
-					{ name: 'document', items: [ '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] }
-				]});
+		      	customConfig: "{% static '/ckeditor/js/config.js' %}"
+		      	});
 		    });
 
 		    total++;

@@ -26,5 +26,5 @@ def getSectionInlineFormSet (can_delete=False):
 		Section, 
 		form=SectionCreateForm, 
 		can_delete=can_delete,
-		extra = 1)
+		extra = 0)
 
