@@ -55,10 +55,13 @@ class Section(models.Model):
 		verbose_name = "Раздел"
 		verbose_name_plural = "Разделы"
 
+def file_storage_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/uploads/files_<page.id>/<filename>
+    return 'uploads/files_{0}/{1}'.format(instance.page.id, filename)
 
 class File(models.Model):
 	page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)
-	upload = models.FileField(verbose_name='Файл', upload_to='uploads/')
+	upload = models.FileField(verbose_name='Файл', upload_to=file_storage_path)
 	alter_name = models.CharField(verbose_name='Переименовать файл', max_length=200, blank=True)
 	comment = models.CharField(verbose_name='Комментарий', max_length=200, blank=True)
 
@@ -66,7 +69,7 @@ class File(models.Model):
 		if self.alter_name:
 			return self.alter_name
 		else:
-			return os.path.basename(self.upload.name)
+			return os.path.basename(self.upload.name).replace('_', ' ')
 
 	def __str__(self):
 		return self.filename()

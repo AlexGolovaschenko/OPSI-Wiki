@@ -1,0 +1,24 @@
+{{ form.non_field_errors }}
+
+{% for hidden_field in form.hidden_fields %}
+	{{ hidden_field.errors }}
+	{{ hidden_field }}
+{% endfor %}
+
+<div id="file_form_set">
+    <div class="row">
+	    <div class="col-md-5 my-1">
+	        {{ form.upload }}
+	    </div>
+	    <div class="col-md-5 my-1">
+	    	Комментарий:
+	        {{ form.comment }}
+	    </div>
+	    <div class="col-md-2 my-1">
+	        {{ form.DELETE }} 
+	        Удалить
+	    </div>
+    </div>
+</div>
+
+ 

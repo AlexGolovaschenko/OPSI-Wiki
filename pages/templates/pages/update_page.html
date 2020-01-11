@@ -23,28 +23,11 @@
 				<input type="button" class="btn btn-outline-primary" value="Добавить раздел" id="add_more">
 				<hr class="w3-bottombar border-dark">
 
-
 				{{ file_forms.management_form }}
-				<div id="file_form_set">
-				    {% for form in file_forms.forms %}
-				    	<div class="row">
-						    <div class="col-md-5 my-1">
-						        {{ form.upload }}
-						    </div>
-						    <div class="col-md-5 my-1">
-						    	Комментарий:
-						        {{ form.comment }}
-						    </div>
-						    <div class="col-md-2 my-1">
-						        {{ form.DELETE }} 
-						        Удалить
-						    </div>
-					    </div>
-					    <hr>
-				    {% endfor %}
-				</div>
-				<hr class="w3-bottombar border-dark">
-
+				{% for form in file_forms.forms %}
+					{% include 'pages/file_upload_form.html' with form=form %}
+					<hr>
+				{% endfor %}
 
 			<div class="form-groupe d-flex justify-content-center">
 				<button class="btn btn-outline-success m-2" type="submit">Применить</button>

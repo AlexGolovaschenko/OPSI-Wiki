@@ -73,6 +73,7 @@ def update_page(request, id=None):
 				messages.warning(request, f'Возникла ошибка при редактировании разделов!')
 
 			file_forms = FileInlineFormSet(request.POST, request.FILES, instance = page)
+			print(request)
 			if file_forms.is_valid():
 				file_forms.save()
 			else:
