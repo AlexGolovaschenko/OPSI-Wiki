@@ -6,7 +6,7 @@
 
 {% block content %} 
 	<div class="container" style="max-width: 500px">
-		<div class="">
+		<div class="mt-4">
 			<form method="POST">
 				{% csrf_token %}
 				<fieldset class="form-group">
@@ -14,7 +14,7 @@
 					{{ form|crispy }}
 				</fieldset>
 				<div class="form-groupe">
-					<button class="btn btn-outline-info" type="submit">Зарегистрироваться</button>
+					<button class="btn btn-outline-primary" type="submit">Зарегистрироваться</button>
 					<br><br>
 				</div>
 			</form>

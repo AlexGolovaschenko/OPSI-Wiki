@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db import models
 from django.forms import Textarea
-from pages.models import Topic, Page, Section, Category, Reference, Link
+from pages.models import Topic, Page, Section, Category, Reference, Link, File
 
 
 
@@ -13,6 +13,10 @@ class TopicAdmin (admin.ModelAdmin):
 
 class SectionInline (admin.StackedInline):
 	model = Section
+	extra = 1
+
+class FileInline (admin.TabularInline):
+	model = File
 	extra = 1
 
 class LinkInline (admin.TabularInline):
@@ -31,7 +35,7 @@ class ReferenceInline (admin.TabularInline):
 
 class PageAdmin (admin.ModelAdmin):
 	list_display = ['name', 'category', 'topic']
-	inlines = [SectionInline, LinkInline, ReferenceInline]
+	inlines = [SectionInline, FileInline, LinkInline, ReferenceInline]
 
 
 admin.site.register(Category, CategoryAdmin)

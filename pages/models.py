@@ -1,4 +1,5 @@
 from django.db import models
+import os
 from ckeditor.fields import RichTextField 
 
 class Category (models.Model):
@@ -54,6 +55,25 @@ class Section(models.Model):
 		verbose_name = "Раздел"
 		verbose_name_plural = "Разделы"
 
+
+class File(models.Model):
+	page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)
+	upload = models.FileField(verbose_name='Файл', upload_to='uploads/')
+	alter_name = models.CharField(verbose_name='Переименовать файл', max_length=200, blank=True)
+	comment = models.CharField(verbose_name='Комментарий', max_length=200, blank=True)
+
+	def filename(self):
+		if self.alter_name:
+			return self.alter_name
+		else:
+			return os.path.basename(self.upload.name)
+
+	def __str__(self):
+		return self.filename()
+
+	class Meta():
+		verbose_name = "Файл"
+		verbose_name_plural = "Файлы"
 
 class Link(models.Model):
 	page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)

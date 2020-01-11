@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, get_list_or_404
 from pages.models import Page, Category, Section
-from pages.forms import PageCreateForm, SectionCreateForm, getSectionInlineFormSet
+from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet, FileInlineFormSet
 
 # def pages_list(request):
 # 	return render(request, 'pages/pages_list.html')
@@ -49,59 +50,53 @@ def page_detail(request, id):
 	return render(request, 'pages/page_detail.html', context)
 
 
+@login_required
+def update_page(request, id=None):
+	if id:
+		page_instance = get_object_or_404(Page, pk=id)
+	else:
+		page_instance = None
 
-def create_page(request):
+
 	if request.method == "POST":
-		page_form = PageCreateForm(request.POST)
-		
-		if page_form.is_valid() :
+		page_form = PageCreateForm(request.POST, instance = page_instance)
+
+		if page_form.is_valid():
 			page = page_form.save()
 
-			section_forms = getSectionInlineFormSet()(request.POST, instance = page)
+			section_forms = SectionInlineFormSet(request.POST, instance = page)
 			if section_forms.is_valid():
 				section_forms.save()
 			else:
-				messages.warning(request, f'Возникла ошибка при создании раздела!')
+				messages.warning(request, f'Возникла ошибка при редактировании разделов!')
 
-			messages.success(request, f'Страница успешно создана!')
-			return redirect('pages:detail', page.id)
-		else:
-			messages.warning(request, f'Возникла ошибка при создании страницы!')
-			return redirect('home')
-	else:
-		page_form = PageCreateForm()
-		section_forms = getSectionInlineFormSet()()
-		
-	context = {
-		'page_form': page_form,
-		'section_forms' : section_forms,
-	}
+			file_forms = FileInlineFormSet(request.POST, request.FILES, instance = page)
+			if file_forms.is_valid():
+				file_forms.save()
+			else:
+				messages.warning(request, f'Возникла ошибка при сохранении файлов!')
 
-	return render(request, 'pages/update_page.html', context)
-
-
-def update_page(request, id):
-	page = get_object_or_404(Page, pk=id)
-
-	if request.method == "POST":
-		page_form = PageCreateForm(request.POST, instance = page)
-		section_forms = getSectionInlineFormSet(can_delete=True)(request.POST, instance = page)
-
-		if page_form.is_valid() and section_forms.is_valid():
-			page_form.save()
-			section_forms.save()
 			messages.success(request, f'Страница успешно изменена!')
+			return redirect('pages:detail', page.id)
+
 		else:
 			messages.warning(request, f'Возникла ошибка при редактировании страницы!')
-		return redirect('pages:detail', str(id))
+			if id:
+				return redirect('pages:detail', str(id))
+			else:
+				return redirect('home')
+
 	else:
-		page_form = PageCreateForm(instance = page)
-		section_forms = getSectionInlineFormSet(can_delete=True)(instance=page)
+		page_form = PageCreateForm(instance = page_instance)
+		section_forms = SectionInlineFormSet(instance=page_instance)
+		file_forms = FileInlineFormSet(instance=page_instance)
+
 		
 	context = {
 		'page_form': page_form,
-		'section_forms' : section_forms,
-		'page_id': id
+		'section_forms': section_forms,
+		'file_forms': file_forms,
+		'page_id': id,
 	}
 
 	return render(request, 'pages/update_page.html', context)

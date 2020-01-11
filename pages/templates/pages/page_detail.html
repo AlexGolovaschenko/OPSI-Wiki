@@ -16,6 +16,19 @@
 		{% endfor %}
 
 
+		{% if page.file_set.all %}
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Файлы</h1>
+			<ul style="padding-left: 0px; list-style-type: none; ">
+				{% for file in page.file_set.all %}
+					<li>
+						<i class="far fa-file-alt pr-2"></i>
+						<a href="{{ file.upload.url }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{file.filename}}</a> {% if file.comment %} - <span>{{file.comment}}</span> {% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+
 		{% if page.link_set.all %}
 			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
 			<ul style="padding-left: 18px; ">
@@ -40,10 +53,11 @@
 			</ol>
 		{% endif %}
 
+		{% if user.is_authenticated %}
 		<div class="d-flex justify-content-end mt-2 mb-4">
-			<a class="btn btn-outline-info" href="{% url 'pages:update_page' page.id %}">Редактировать</a>
+			<a class="btn btn-outline-primary" href="{% url 'pages:update_page' page.id %}">Редактировать</a>
 		</div>
-
+		{% endif %}
 
 	</div>
 {% endblock %}
