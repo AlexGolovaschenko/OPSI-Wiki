@@ -25,7 +25,7 @@ SECRET_KEY = 'yhym+3unt-zk7v^i6l$jo*z5plh8=n2i1=)8y)77l(tnimgn20'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.6.5.124', 'localhost']
+ALLOWED_HOSTS = ['10.6.5.124', 'localhost', '1d70fcd3.ngrok.io']
 
 
 # Application definition
@@ -160,4 +160,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'user:login'
+LOGIN_URL = 'users:login'

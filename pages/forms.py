@@ -2,7 +2,7 @@ from django import forms
 from django import template
 from django.shortcuts import render
 from ckeditor.widgets import CKEditorWidget
-from pages.models import Page, Section
+from pages.models import Page, Section, File
 
 
 class PageCreateForm (forms.ModelForm):
@@ -20,11 +20,8 @@ class SectionCreateForm (forms.ModelForm):
 		fields = ['headline', 'content']
 
 
-def getSectionInlineFormSet (can_delete=False):
-	return forms.inlineformset_factory(
-		Page,
-		Section, 
-		form=SectionCreateForm, 
-		can_delete=can_delete,
-		extra = 0)
-
+SectionInlineFormSet = forms.inlineformset_factory(Page, Section, form=SectionCreateForm, 
+	can_delete=True, extra = 0 )
+ 
+FileInlineFormSet = forms.inlineformset_factory(Page, File, fields=('upload', 'comment'), 
+	can_delete=True, extra = 2 )
