@@ -1,0 +1,25 @@
+{{ form.non_field_errors }}
+
+{% for hidden_field in form.hidden_fields %}
+	{{ hidden_field.errors }}
+	{{ hidden_field }}
+{% endfor %}
+
+<div id="file_form_set">
+    <div class="row">
+	    <div class="col-md-5 my-1">
+	    	<span style="width:60px; display: inline-block;">Имя:</span>
+	        {{ form.name }}
+	    </div>
+	    <div class="col-md-5 my-1">
+	    	<span style="width:60px; display: inline-block;">Ссылка:</span>
+	        {{ form.link }}
+	    </div>
+	    <div class="col-md-2 my-1">
+	        {{ form.DELETE }} 
+	        Удалить
+	    </div>
+    </div>
+</div>
+
+ 

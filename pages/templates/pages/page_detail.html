@@ -31,9 +31,12 @@
 
 		{% if page.link_set.all %}
 			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
-			<ul style="padding-left: 18px; ">
+			<ul style="padding-left: 0px; list-style-type: none; ">
 				{% for link in page.link_set.all %}
-					<li><a href="{{ link.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{link.name}}</a></li>
+					<li>
+						<i class="fas fa-link pr-2"></i>
+						<a href="{{ link.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{link.name}}</a>
+					</li>
 				{% endfor %}
 			</ul>
 		{% endif %}
@@ -42,15 +45,16 @@
 		{% if page.reference_set.all %}
 			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Литература</h1>
 			
-			<ol style="padding-left: 20px;">
+			<ul style="padding-left: 0px; list-style-type: none; ">
 				{% for ref in page.reference_set.all %}
 				<li>
+					<i class="fas fa-book pr-2"></i>
 					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}.</a>
 					<span>{{ ref.author }}.</span>
 					<span>{{ ref.pub_date }}.</span>
 				</li>
 				{% endfor %}
-			</ol>
+			</ul>
 		{% endif %}
 
 		{% if user.is_authenticated %}

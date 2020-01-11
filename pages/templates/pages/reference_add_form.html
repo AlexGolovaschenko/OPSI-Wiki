@@ -1,0 +1,33 @@
+{{ form.non_field_errors }}
+
+{% for hidden_field in form.hidden_fields %}
+	{{ hidden_field.errors }}
+	{{ hidden_field }}
+{% endfor %}
+
+<div id="file_form_set">
+    <div class="row">
+	    <div class="col-md-3 my-1">
+	    	<span>Название:</span>
+	        {{ form.name }}
+	    </div>
+	    <div class="col-md-3 my-1">
+	    	<span>Ссылка:</span>	    	
+	        {{ form.link }}
+	    </div>
+	    <div class="col-md-3 my-1">
+	    	<span>Автор:</span>	    	
+	        {{ form.author }}
+	    </div>
+	    <div class="col-md-2 my-1">
+	    	<span class="text-nowrap">Дата публикации:</span>	    	
+	        {{ form.pub_date }}
+	    </div>	    	    
+	    <div class="col-md-1 my-1">
+	    	<span>Удалить</span>	    	
+	        {{ form.DELETE }} 
+	    </div>
+    </div>
+</div>
+
+ 

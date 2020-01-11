@@ -7,11 +7,16 @@
 
 <div id="file_form_set">
     <div class="row">
-	    <div class="col-md-5 my-1">
+	    <div class="col-md-4 my-1">
 	        {{ form.upload }}
+	        {% if form.upload.value %}
+		        <span class="small" style="display: block">
+		        	На данный момент: <a class="text-info" href='{{ form.upload.value.url }}'>{{ form.upload.value }}</a>
+		    	</span>    
+		    {% endif %}
 	    </div>
-	    <div class="col-md-5 my-1">
-	    	Комментарий:
+	    <div class="col-md-6 my-1">
+	    	<span style="width:100px; display: inline-block;">Комментарий:</span>
 	        {{ form.comment }}
 	    </div>
 	    <div class="col-md-2 my-1">

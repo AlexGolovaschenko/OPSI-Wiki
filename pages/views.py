@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, get_list_or_404
 from pages.models import Page, Category, Section
-from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet, FileInlineFormSet
+from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet, \
+						FileInlineFormSet, LinkInlineFormSet, ReferenceInlineFormSet
 
 # def pages_list(request):
 # 	return render(request, 'pages/pages_list.html')
@@ -73,11 +74,22 @@ def update_page(request, id=None):
 				messages.warning(request, f'Возникла ошибка при редактировании разделов!')
 
 			file_forms = FileInlineFormSet(request.POST, request.FILES, instance = page)
-			print(request)
 			if file_forms.is_valid():
 				file_forms.save()
 			else:
 				messages.warning(request, f'Возникла ошибка при сохранении файлов!')
+
+			link_forms = LinkInlineFormSet(request.POST, instance = page)
+			if link_forms.is_valid():
+				link_forms.save()
+			else:
+				messages.warning(request, f'Возникла ошибка при сохранении ссылок!')
+
+			reference_forms = ReferenceInlineFormSet(request.POST, instance = page)
+			if reference_forms.is_valid():
+				reference_forms.save()
+			else:
+				messages.warning(request, f'Возникла ошибка при сохранении литературы!')
 
 			messages.success(request, f'Страница успешно изменена!')
 			return redirect('pages:detail', page.id)
@@ -93,12 +105,16 @@ def update_page(request, id=None):
 		page_form = PageCreateForm(instance = page_instance)
 		section_forms = SectionInlineFormSet(instance=page_instance)
 		file_forms = FileInlineFormSet(instance=page_instance)
+		link_forms = LinkInlineFormSet(instance=page_instance)
+		reference_forms = ReferenceInlineFormSet(instance=page_instance)
 
 		
 	context = {
 		'page_form': page_form,
 		'section_forms': section_forms,
 		'file_forms': file_forms,
+		'link_forms': link_forms,
+		'reference_forms': reference_forms,
 		'page_id': id,
 	}
 
