@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -53,10 +54,11 @@ def page_detail(request, id):
 @login_required
 def update_page(request, id=None):
 	if id:
+		# update existing page
 		page_instance = get_object_or_404(Page, pk=id)
 	else:
+		# create new page
 		page_instance = None
-
 
 	if request.method == "POST":
 		page_form = PageCreateForm(request.POST, instance = page_instance)
@@ -100,3 +102,12 @@ def update_page(request, id=None):
 	}
 
 	return render(request, 'pages/update_page.html', context)
+
+
+@login_required
+def delete_page(request, id):
+	page = get_object_or_404(Page, pk=id)
+	page.delete()
+	messages.info(request, f'Страница удалена!')
+	next = request.GET.get('next', '/')
+	return HttpResponseRedirect(next)
