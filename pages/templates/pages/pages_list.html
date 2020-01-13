@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="w3-content">
+	<div class="row">
+		{% if topics %}
+		<div class="col-3 d-none d-md-inline my-3 w3-border-right"> 
+			{% if topics %}
+				<ul class="w3-ul">
+					{% for topic, pages in topics.items %}	
+					<li class="w3-light-grey text-dark p-0 w3-hover-pale-blue">
+						<button class="btn-toggle-collapse btn btn-block btn-link p-2 m-0 text-dark" style="text-decoration: none;" data-toggle="collapse" data-target="#id_collapse_item_{{ forloop.counter }}">
+							<div class="d-flex align-items-center">
+								<h4 class="w3-medium text-left p-0 m-0">{{ topic }}</h4>
+								<i class="fas fa-angle-down ml-auto"></i>
+							</div>
+						</button>
+					</li>
+					<div class="collapse" id="id_collapse_item_{{ forloop.counter }}">
+						<ul class="w3-ul">
+						{% for p in pages %}	
+						<li class="text-dark p-0 m-0 w3-hover-pale-blue">
+							<a href="{% url 'pages:detail' p.id %}" class="small text-left text-primary pl-2 p-0 m-0 btn btn-block btn-link" style="text-decoration: none;">{{ p.name }}</a>
+						</li>
+						{% endfor %}
+					</div>	
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+		{% endif %}
+
+		<div class="col">
 		{% if topics %}
 			{% for topic, pages in topics.items %}
-				<ul class="w3-ul w3-margin-top">
-					<li class="w3-light-grey w3-text-dark-grey" style="padding-top: 2px; padding-bottom: 2px;">
-						<h2 class="w3-xlarge" >{{ topic }}</h2>
+				<ul class="w3-ul mt-3">
+					<li class="w3-light-grey w3-text-dark-grey py-0" style="padding-top: 2px; padding-bottom: 2px;">
+						<h2 class="w3-xlarge my-1" >{{ topic }}</h2>
 					</li>
 					{% for p in pages %}
 						<li class="w3-text-indigo w3-hover-text-blue p-1">
@@ -37,9 +65,18 @@
 			</p>
 			<hr>
 		{% endif %}
-
-
+		</div>
+	
 	</div>
 {% endblock %}
 
 
+{% block scripts %}
+	{{ block.super }}
+
+	<script>
+	jQuery('button.btn-toggle-collapse').click( function(e) {
+	    jQuery('.collapse').collapse('hide');
+	});
+	</script>
+{% endblock %}

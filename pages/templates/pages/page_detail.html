@@ -50,8 +50,8 @@
 				<li>
 					<i class="fas fa-book pr-2"></i>
 					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}.</a>
-					<span>{{ ref.author }}.</span>
-					<span>{{ ref.pub_date }}.</span>
+					{% if ref.author %} <span>{{ ref.author }}.</span> {% endif %} 
+					{% if ref.pub_date %} <span>{{ ref.pub_date }}.</span> {% endif %}
 				</li>
 				{% endfor %}
 			</ul>

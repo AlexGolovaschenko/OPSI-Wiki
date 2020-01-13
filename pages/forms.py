@@ -25,9 +25,9 @@ SectionInlineFormSet = forms.inlineformset_factory(Page, Section, form=SectionCr
  
 
 class FileUploadForm (forms.ModelForm):
-	upload = forms.FileField(required=False, widget=forms.FileInput( attrs={} ))
+	upload = forms.FileField(required=False, widget=forms.FileInput( attrs={'class': "form-control-file"} ))
 	comment = forms.CharField(max_length=200, required=False, 
-		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 110px);' } ))
+		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 110px); display: inline;', 'class': "form-control" } ))
 
 	class Meta:
 		model = File
@@ -39,9 +39,9 @@ FileInlineFormSet = forms.inlineformset_factory(Page, File, form=FileUploadForm,
 
 class LinkCreateForm (forms.ModelForm):
 	name = forms.CharField(max_length=200, required=False,
-		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 70px);' } ))
+		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 70px); display: inline;', 'class': "form-control" } ))
 	link = forms.CharField(required=False, 
-		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 70px);' } ))
+		widget=forms.TextInput( attrs={'style': 'width:calc(100% - 70px); display: inline;', 'class': "form-control" } ))
 
 	class Meta:
 		model = Link
@@ -53,13 +53,13 @@ LinkInlineFormSet = forms.inlineformset_factory(Page, Link, form=LinkCreateForm,
 
 class ReferenceCreateForm (forms.ModelForm):
 	name = forms.CharField(max_length=200, required=False,
-		widget=forms.TextInput( attrs={'style': 'width:100%;' } ))
+		widget=forms.TextInput( attrs={'style': 'width:100%;', 'class': "form-control" } ))
 	link = forms.CharField(required=False, 
-		widget=forms.TextInput( attrs={'style': 'width:100%;' } ))
+		widget=forms.TextInput( attrs={'style': 'width:100%;', 'class': "form-control" } ))
 	author = forms.CharField(max_length=200, required=False, 
-		widget=forms.TextInput( attrs={'style': 'width:100%;' } ))
+		widget=forms.TextInput( attrs={'style': 'width:100%;', 'class': "form-control" } ))
 	pub_date = forms.CharField(max_length=200, required=False, 
-		widget=forms.TextInput( attrs={'style': 'width:100%;' } ))
+		widget=forms.TextInput( attrs={'style': 'width:100%;', 'class': "form-control" } ))
 
 	class Meta:
 		model = Reference
