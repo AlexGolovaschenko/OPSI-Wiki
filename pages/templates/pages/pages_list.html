@@ -52,15 +52,3 @@
 {% endblock %}
 
 
-{% block scripts %}
-	{{ block.super }}
-	<script>
-	jQuery('button.btn-toggle-category-collapse').click( function(e) {
-	    jQuery('.category-collapse.collapse').collapse('hide');
-	});
-
-	jQuery('button.btn-toggle-topic-collapse').click( function(e) {
-	    jQuery('.topic-collapse.collapse').collapse('hide');
-	});	
-	</script>
-{% endblock %}
