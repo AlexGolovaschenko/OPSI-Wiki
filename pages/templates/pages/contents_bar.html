@@ -1,0 +1,57 @@
+<div class="col-3 d-none d-md-inline my-3 w3-border-right">
+	<ul class="list-group list-group-flush">
+	{% for category in contents %}
+
+		<!-- Categories -->
+		{% if category.active == True %}  
+		<li class="list-group-item-primary d-flex align-items-center w3-border-bottom p-0">
+			<h4 class="w3-medium text-left p-2 m-0">
+				{{ category.name }}
+			</h4>
+			{% if category.topics %}
+				<button class="btn-toggle-category-collapse btn fas fa-angle-down ml-auto mr-1 text-dark" data-toggle="collapse" data-target="#id_category_collapse_item_{{ forloop.counter }}">
+				</button>
+			{% endif %}
+		</li>
+		{% else %}
+		<li class="w3-light-grey d-flex align-items-center w3-border-bottom p-0">
+			<h4 class="w3-medium text-left p-2 m-0">
+				<a class="" href="{{ category.url }}">{{ category.name }}</a>
+			</h4>
+			{% if category.topics %}
+				<button class="btn-toggle-category-collapse btn fas fa-angle-down ml-auto mr-1 text-dark" data-toggle="collapse" data-target="#id_category_collapse_item_{{ forloop.counter }}">
+				</button>
+			{% endif %}
+		</li>
+		{% endif %}
+
+		<!-- Category content -->
+		<div class="category-collapse collapse" id="id_category_collapse_item_{{ forloop.counter }}">
+		<ul class="list-group list-group-flush">
+		{% for topic in category.topics %}
+			<li class="d-flex align-items-center p-0 w3-border-bottom">
+				<h4 class="small text-left p-2 m-0">
+					<a class="text-dark" href="{{ topic.url }}">{{ topic.name }}</a>
+				</h4>
+				{% if topic.pages %}
+					<button class="btn-toggle-topic-collapse btn fas fa-angle-down ml-auto mr-1 py-1 text-dark" data-toggle="collapse" data-target="#id_topic_collapse_item_{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+					</button>
+				{% endif %}
+			</li>
+
+			<div class="topic-collapse collapse w3-border-bottom" id="id_topic_collapse_item_{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+			<ul class="list-group list-group-flush small py-2">
+				{% for page in topic.pages %}	
+				<a href="{{ page.url }}" class="text-left p-0 m-0" style="text-decoration: none;">
+					<li class="ml-4 w3-hover-pale-blue w3-hover-text-indigo"> {{ page.name }} </li>
+				</a>
+				{% endfor %}
+			</ul>
+			</div>	
+		{% endfor %}
+		</ul>
+		</div>
+
+	{% endfor %}
+	</ul>
+</div>

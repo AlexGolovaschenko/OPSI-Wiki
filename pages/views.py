@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, get_list_or_404
-from pages.models import Page, Category, Section
+from pages.models import Page, Category, Topic, Section
 from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet, \
 						FileInlineFormSet, LinkInlineFormSet, ReferenceInlineFormSet
-
-# def pages_list(request):
-# 	return render(request, 'pages/pages_list.html')
 
 
 def programmer_pages_list(request):
@@ -42,13 +40,64 @@ def _render_pages_list(request, category):
 	except:
 		pass
 
-	context = {'topics': topics}
+	context = {
+		'topics':topics, 
+		'contents': _get_table_of_contents(active_category=category.name)
+		}
 	return render(request, 'pages/pages_list.html', context)
 
 
+def _get_table_of_contents(active_category=None):
+	contents = []
+	categories = Category.objects.order_by('order')
+	for c in categories:
+		cat = {}
+		cat['name'] = c.name
+		cat['url'] = _get_category_url(c.name)
+		cat['topics'] = []
+		cat['active'] = cat['name'] == active_category
+
+		topics = Topic.objects.order_by('order')
+		for t in topics:
+			pages = t.page_set.filter(category = c)
+
+			if pages:
+				top = {}
+				top['name'] = t.name
+				top['url'] = '#'
+				top['pages'] = []		
+				cat['topics'].append(top)
+
+				for p in pages:
+					page = {}
+					page['name'] = p.name
+					page['url'] = reverse('pages:detail', args = (p.pk,))	
+					top['pages'].append(page)
+
+		contents.append(cat)
+	return contents
+
+
+def _get_category_url(category_name=None):
+	if category_name == 'Программирование':
+		return reverse('pages:programmer_pages_list')
+	elif category_name == 'Конструирование':
+		return reverse('pages:constructor_pages_list')
+	elif category_name == 'Управление проектами':
+		return reverse('pages:project_manager_pages_list')
+	elif category_name == 'Схемотехника':
+		return reverse('pages:circuit_engineer_pages_list')
+	else:
+		return reverse('home')
+ 
+
 def page_detail(request, id):
 	page = get_object_or_404(Page, pk=id)
-	context = {'page': page}
+	category = page.category
+	context = {
+		'page': page,
+		'contents': _get_table_of_contents(active_category=category.name)
+		}
 	return render(request, 'pages/page_detail.html', context)
 
 

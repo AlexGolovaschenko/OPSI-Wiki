@@ -1,33 +1,13 @@
 {% extends 'base.html' %}
 
+{% block content_max_width %} 1500px; {% endblock %}
+{% block alert_max_width %} 1500px; {% endblock %}
+
+
 {% block content %}
 	<div class="row">
-		{% if topics %}
-		<div class="col-3 d-none d-md-inline my-3 w3-border-right"> 
-			{% if topics %}
-				<ul class="w3-ul">
-					{% for topic, pages in topics.items %}	
-					<li class="w3-light-grey text-dark p-0 w3-hover-pale-blue">
-						<button class="btn-toggle-collapse btn btn-block btn-link p-2 m-0 text-dark" style="text-decoration: none;" data-toggle="collapse" data-target="#id_collapse_item_{{ forloop.counter }}">
-							<div class="d-flex align-items-center">
-								<h4 class="w3-medium text-left p-0 m-0">{{ topic }}</h4>
-								<i class="fas fa-angle-down ml-auto"></i>
-							</div>
-						</button>
-					</li>
-					<div class="collapse" id="id_collapse_item_{{ forloop.counter }}">
-						<ul class="w3-ul">
-						{% for p in pages %}	
-						<li class="text-dark p-0 m-0 w3-hover-pale-blue">
-							<a href="{% url 'pages:detail' p.id %}" class="small text-left text-primary pl-2 p-0 m-0 btn btn-block btn-link" style="text-decoration: none;">{{ p.name }}</a>
-						</li>
-						{% endfor %}
-					</div>	
-					{% endfor %}
-				</ul>
-			{% endif %}
-		</div>
-		{% endif %}
+
+		{% include 'pages/contents_bar.html' with contents=contents %}
 
 		<div class="col">
 		{% if topics %}
@@ -68,15 +48,19 @@
 		</div>
 	
 	</div>
+
 {% endblock %}
 
 
 {% block scripts %}
 	{{ block.super }}
-
 	<script>
-	jQuery('button.btn-toggle-collapse').click( function(e) {
-	    jQuery('.collapse').collapse('hide');
+	jQuery('button.btn-toggle-category-collapse').click( function(e) {
+	    jQuery('.category-collapse.collapse').collapse('hide');
 	});
+
+	jQuery('button.btn-toggle-topic-collapse').click( function(e) {
+	    jQuery('.topic-collapse.collapse').collapse('hide');
+	});	
 	</script>
 {% endblock %}

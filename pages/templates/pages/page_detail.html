@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block content_max_width %} 1500px; {% endblock %}
+{% block alert_max_width %} 1500px; {% endblock %}
+
+
 {% block content %}
-	<div class="w3-content w3-text-dark-grey">
+<div class="row">
+
+	{% include 'pages/contents_bar.html' with contents=contents %}
+
+	<div class="col">
 		<h1 class="w3-section w3-padding w3-xlarge w3-border-bottom w3-light-grey w3-center text-dark">{{ page.name }}</h1>
 		<div class="rich-text-area">
 			<p>{{ page.short_description | safe }}</p>
 		</div>
 
 		{% for section in page.section_set.all %}
-			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">{{ section.headline }}</h1>
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">{{ section.headline }}</h2>
 			<div class="rich-text-area">
 				<p >{{ section.content | safe }}</p>
 			</div>
@@ -17,7 +25,7 @@
 
 
 		{% if page.file_set.all %}
-			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Файлы</h1>
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Файлы</h2>
 			<ul style="padding-left: 0px; list-style-type: none; ">
 				{% for file in page.file_set.all %}
 					<li>
@@ -30,7 +38,7 @@
 
 
 		{% if page.link_set.all %}
-			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h1>
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Ссылки</h2>
 			<ul style="padding-left: 0px; list-style-type: none; ">
 				{% for link in page.link_set.all %}
 					<li>
@@ -43,13 +51,17 @@
 		
 
 		{% if page.reference_set.all %}
-			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Литература</h1>
+			<h2 class="w3-margin-top w3-xlarge w3-border-bottom">Литература</h2>
 			
 			<ul style="padding-left: 0px; list-style-type: none; ">
 				{% for ref in page.reference_set.all %}
 				<li>
 					<i class="fas fa-book pr-2"></i>
-					<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}.</a>
+					{% if ref.link %}
+						<a href="{{ ref.link }}" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{ref.name}}.</a>
+					{% else %}
+						{{ref.name}}.
+					{% endif %}
 					{% if ref.author %} <span>{{ ref.author }}.</span> {% endif %} 
 					{% if ref.pub_date %} <span>{{ ref.pub_date }}.</span> {% endif %}
 				</li>
@@ -64,4 +76,5 @@
 		{% endif %}
 
 	</div>
+</div>
 {% endblock %}
