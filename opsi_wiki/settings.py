@@ -161,3 +161,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'users:login'
+
+
+
+
+# Load local settings
+try:
+    from opsi_wiki.local_settings import *
+except ImportError:
+    pass
