@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, get_list_or_404
 from pages.models import Page, Category, Topic, Section
 from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet, \
@@ -101,7 +101,7 @@ def page_detail(request, id):
 	return render(request, 'pages/page_detail.html', context)
 
 
-@login_required
+@permission_required('pages.change_page')
 def update_page(request, id=None):
 	if id:
 		# update existing page
@@ -170,7 +170,7 @@ def update_page(request, id=None):
 	return render(request, 'pages/update_page.html', context)
 
 
-@login_required
+@permission_required('pages.change_page')
 def delete_page(request, id):
 	page = get_object_or_404(Page, pk=id)
 	page.delete()

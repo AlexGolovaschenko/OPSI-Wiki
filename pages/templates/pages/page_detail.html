@@ -69,7 +69,7 @@
 			</ul>
 		{% endif %}
 
-		{% if user.is_authenticated %}
+		{% if perms.pages.change_page %}
 		<div class="d-flex justify-content-end mt-2 mb-4">
 			<a class="btn btn-outline-primary" href="{% url 'pages:update_page' page.id %}">Редактировать</a>
 		</div>

@@ -21,7 +21,7 @@
 							<div class="d-flex">
 								<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;" class="align-self-center">{{ p.name }}</a>
 								<button class="fas fa-share-alt btn btn-outline-info ml-auto btn-sm" onclick="copyLink('{{ request.scheme }}://{{ request.get_host }}{% url 'pages:detail' p.id %}')" title='Копировать ссылку'></button>
-								{% if user.is_authenticated %}
+								{% if perms.pages.change_page %}
 								<a href="{% url 'pages:delete_page' p.id %}?next={{request.path}}" class="fas fa-trash-alt btn btn-outline-danger btn-sm ml-3" title='Удалить страницу'></a>
 								{% endif %}
 							</div>
@@ -30,7 +30,7 @@
 				</ul>
 			{% endfor %}
 
-			{% if user.is_authenticated %}
+			{% if perms.pages.change_page %}
 			<div class="d-flex justify-content-end mt-4 mb-4">
 				<a class="btn btn-outline-primary" href="{% url 'pages:create_page'%}">Создать статью</a>
 			</div>
@@ -39,7 +39,7 @@
 		{% else %}
 			<p class="pt-4">
 				<span class="text-dark py-2">В данном разделе еще нет статей.</span>
-				{% if user.is_authenticated %}
+				{% if perms.pages.change_page %}
 				<a class="btn btn-outline-primary ml-4" href="{% url 'pages:create_page'%}">Создать статью</a>
 				{% endif %}	
 			</p>

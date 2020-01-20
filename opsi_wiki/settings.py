@@ -25,14 +25,15 @@ SECRET_KEY = 'yhym+3unt-zk7v^i6l$jo*z5plh8=n2i1=)8y)77l(tnimgn20'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.6.5.124', 'localhost', '1d70fcd3.ngrok.io']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
-    'users.apps.UsersConfig', 
+    'users.apps.UsersConfig',
+    'partners.apps.PartnersConfig', 
     'crispy_forms',  
     'ckeditor',
     'django.contrib.admin',
