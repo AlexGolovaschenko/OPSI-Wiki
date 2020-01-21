@@ -11,7 +11,7 @@ urlpatterns = [
     path('page/', include('pages.urls')),
     path('user/', include('users.urls')),
     path('admin/', admin.site.urls),
-    path('parners/', include('partners.urls'))
+    path('partners/', include('partners.urls'))
 ]
 
 if settings.DEBUG:
