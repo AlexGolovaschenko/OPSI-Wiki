@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="my-3">
+	<h1 class="w3-light-grey text-dark p-2  mb-3"> 
+		{{ company.company_name }} 
+		<span class="badge badge-pill float-right 
+				{% if company.rating < 2 %} badge-danger 
+				{% elif company.rating < 4 %} badge-warning
+				{% else %} badge-success 
+				{% endif %}
+				" title='Рейтинг'> 
+			Рейтинг {{ company.rating }} 
+		</span>
+	</h1>
+	<div class="row">
+		<div class="col-sm-3">
+			<img class="p-2 border w-100" src="{{ company.icon.url }}">
+		</div>
+		<div class="col-sm-9">
+			<h3 class="w3-border-bottom">Тип поставляемого оборудования</h3>
+			<p class="my-0">{{ company.service|linebreaks }}</p>
+			
+			<h3 class="w3-border-bottom">Контакты</h3>
+			<p class="my-0">{{ company.contacts|linebreaks }}</p>
+			
+		</div>
+	</div>
+
+
+	{% if perms.pages.change_page %}
+		<div class="d-flex justify-content-end mt-2 mb-4">
+			<a class="btn btn-outline-primary" href="{% url 'partners:update_supplier' company.id %}">Редактировать</a>
+		</div>
+	{% endif %}
+
+</div>
+{% endblock %}

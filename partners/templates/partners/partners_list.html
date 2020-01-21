@@ -3,79 +3,87 @@
 
 
 {% block content %}
-<h1 class="mt-3 w3-light-grey text-dark p-2"> Субподрядчики </h1>
+	<h1 class="w3-light-grey text-dark d-flex p-2 mt-3 mb-0"> Субподрядчики 
+		{% if perms.pages.change_page %}
+		<a class="btn btn-outline-primary ml-auto align-self-center" href="{% url 'partners:add_contractor' %}"> Добавить компанию</a>
+		{% endif %}	
+	</h1>
+	<div class="row mb-3 px-2">
+		{% if contractors %}
+			{% for company in contractors %}
+			  <div class="col-sm-6 mt-3 px-2">
+				<div class="media border p-3 h-100">
+				  <img class="mr-3 my-2" src="{{ company.icon.url }}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
+				  <div class="media-body">
+					<h5 class="card-title"> 
+						{{ company.company_name }}
 
-<div class="row mb-3 px-2">
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-success float-right" title='Рейтинг'>4</span> </h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting text below as a natural lead-in to additional content. With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
+						<span class="badge badge-pill float-right 
+								{% if company.rating < 2 %} badge-danger 
+								{% elif company.rating < 4 %} badge-warning
+								{% else %} badge-success 
+								{% endif %}
+								" title='Рейтинг'> 
+							{{ company.rating }} 
+						</span>
+					</h5>
+			        <p class="card-text"> {{ company.service }} </p>
+			        <a href="{% url 'partners:contractor_detail' company.id %}"  class="btn btn-primary btn-sm">Подробней</a>
+				  </div>
+				</div>
+			  </div>
+			{% endfor %}
+		{% else %}
+			<p class="p-3">
+				<span class="text-dark py-2">В данном разделе еще нет компаний.</span>
+				{% if perms.pages.change_page %}
+				<a class="btn btn-outline-primary ml-4" href="{% url 'partners:add_contractor' %}">Добавить компанию</a>
+				{% endif %}	
+			</p>
+			<hr>
+		{% endif %}	
 	</div>
-  </div>
 
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-warning float-right" title='Рейтинг'>3</span> </h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
+
+	<h1 class="w3-light-grey text-dark d-flex p-2 mt-3 mb-0"> Поставщики 
+		{% if perms.pages.change_page %}
+		<a class="btn btn-outline-primary ml-auto align-self-center" href="{% url 'partners:add_supplier' %}"> Добавить компанию</a>
+		{% endif %}	
+	</h1>	
+	<div class="row mb-3 px-2">
+		{% if suppliers %}
+			{% for company in suppliers %}
+			  <div class="col-sm-6 mt-3 px-2">
+				<div class="media border p-3 h-100">
+				  <img class="mr-3 my-2" src="{{ company.icon.url }}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
+				  <div class="media-body">
+					<h5 class="card-title"> 
+						{{ company.company_name }}
+
+						<span class="badge badge-pill float-right 
+								{% if company.rating < 2 %} badge-danger 
+								{% elif company.rating < 4 %} badge-warning
+								{% else %} badge-success 
+								{% endif %}
+								" title='Рейтинг'> 
+							{{ company.rating }} 
+						</span>
+					</h5>
+			        <p class="card-text"> {{ company.service }} </p>
+			        <a href="{% url 'partners:supplier_detail' company.id %}"  class="btn btn-primary btn-sm">Подробней</a>
+				  </div>
+				</div>
+			  </div>
+			{% endfor %}
+		{% else %}
+			<p class="p-3">
+				<span class="text-dark py-2">В данном разделе еще нет компаний.</span>
+				{% if perms.pages.change_page %}
+				<a class="btn btn-outline-primary ml-4" href="{% url 'partners:add_supplier' %}">Добавить компанию</a>
+				{% endif %}	
+			</p>
+			<hr>
+		{% endif %}	
 	</div>
-  </div>
-
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-danger float-right" title='Рейтинг'>2</span> </h5>
-        <p class="card-text">With supportingadditional content. </p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
-	</div>
-  </div>
-</div>
-
-<h1 class="mt-3 w3-light-grey text-dark p-2"> Поставщики </h1>
-
-<div class="row mb-3 px-2">
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-success float-right" title='Рейтинг'>4</span> </h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content. With supporting text below as a natural lead-in to additional content. With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
-	</div>
-  </div>
-
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-warning float-right" title='Рейтинг'>3</span> </h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
-	</div>
-  </div>
-
-  <div class="col-sm-6 mt-3 px-2">
-	<div class="media border p-3 h-100">
-	  <img class="mr-3 my-2" src="{% static 'img/pertner_img_default.png' %}" alt="Card image cap" style="max-width: 60px; max-height: 60px;">
-	  <div class="media-body">
-		<h5 class="card-title">Special title treatment <span class="badge badge-pill badge-danger float-right" title='Рейтинг'>2</span> </h5>
-        <p class="card-text">With supportingadditional content. </p>
-        <a href="#" class="btn btn-primary btn-sm">Подробней</a>
-	  </div>
-	</div>
-  </div>
-</div>
-
 
 {% endblock %}
