@@ -10,20 +10,16 @@ from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet,
 
 
 def programmer_pages_list(request):
-	CATEGORY_NAME = 'Программирование'
-	return _render_pages_list(request, CATEGORY_NAME)
+	return _render_pages_list(request, Category.SOFTWARE_DEVELOPMENT)
 
 def constructor_pages_list(request):
-	CATEGORY_NAME = 'Конструирование'
-	return _render_pages_list(request, CATEGORY_NAME)
+	return _render_pages_list(request, Category.CONSTRUCTION)
 
 def project_manager_pages_list(request):
-	CATEGORY_NAME = 'Управление проектами'
-	return _render_pages_list(request, CATEGORY_NAME)
+	return _render_pages_list(request, Category.PROJECT_MANAGMENT)
 
 def circuit_engineer_pages_list(request):
-	CATEGORY_NAME = 'Схемотехника'
-	return _render_pages_list(request, CATEGORY_NAME)
+	return _render_pages_list(request, Category.CIRCUIT_ENGINEERING)
 
 
 def _render_pages_list(request, category):
@@ -52,7 +48,7 @@ def _get_table_of_contents(active_category=None):
 	categories = Category.objects.order_by('order')
 	for c in categories:
 		cat = {}
-		cat['name'] = c.name
+		cat['name'] = c.get_name_display()
 		cat['url'] = _get_category_url(c.name)
 		cat['topics'] = []
 		cat['active'] = cat['name'] == active_category
@@ -79,13 +75,13 @@ def _get_table_of_contents(active_category=None):
 
 
 def _get_category_url(category_name=None):
-	if category_name == 'Программирование':
+	if category_name == Category.SOFTWARE_DEVELOPMENT:
 		return reverse('pages:programmer_pages_list')
-	elif category_name == 'Конструирование':
+	elif category_name == Category.CONSTRUCTION:
 		return reverse('pages:constructor_pages_list')
-	elif category_name == 'Управление проектами':
+	elif category_name == Category.PROJECT_MANAGMENT:
 		return reverse('pages:project_manager_pages_list')
-	elif category_name == 'Схемотехника':
+	elif category_name == Category.CIRCUIT_ENGINEERING:
 		return reverse('pages:circuit_engineer_pages_list')
 	else:
 		return reverse('home')

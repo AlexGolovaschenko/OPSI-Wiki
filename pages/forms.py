@@ -2,10 +2,13 @@ from django import forms
 from django import template
 from django.shortcuts import render
 from ckeditor.widgets import CKEditorWidget
-from pages.models import Page, Section, File, Link, Reference
+from pages.models import Category, Page, Section, File, Link, Reference
 
 
 class PageCreateForm (forms.ModelForm):
+	# for select category what you need
+	# category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Категория')
+
 	class Meta:
 		model = Page
 		fields = ['category', 'topic', 'name', 'short_description']
