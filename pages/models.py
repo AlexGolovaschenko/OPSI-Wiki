@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 import os
 from ckeditor.fields import RichTextField 
 
@@ -8,6 +9,7 @@ class Category (models.Model):
     CONSTRUCTION = 'CONSTRUCT'
     PROJECT_MANAGMENT = 'PROJ_MANAG'
     CIRCUIT_ENGINEERING = 'CIRC_ENG'
+    PROCESS_SYSTEM_INTEGRATION = 'PROC_SI'
 
     CATEGORY_CHOICES = [
         (None, '---------'),
@@ -15,6 +17,7 @@ class Category (models.Model):
         (CONSTRUCTION, 'Конструирование'),
         (PROJECT_MANAGMENT, 'Управление проектами'),
         (CIRCUIT_ENGINEERING, 'Схемотехника'),
+        (PROCESS_SYSTEM_INTEGRATION, 'Процесс "Системная интеграция"'),
     ]
 
     name = models.CharField(max_length=20, choices=CATEGORY_CHOICES,
@@ -27,6 +30,19 @@ class Category (models.Model):
     class Meta():
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
+
+    def get_url(self):
+        return Category.get_url_by_name(self.name)
+
+    def get_url_by_name(name):
+        urls = {
+            Category.SOFTWARE_DEVELOPMENT : reverse('pages:programmer_pages_list'),
+            Category.CONSTRUCTION : reverse('pages:constructor_pages_list'),
+            Category.PROJECT_MANAGMENT : reverse('pages:project_manager_pages_list'),
+            Category.CIRCUIT_ENGINEERING : reverse('pages:circuit_engineer_pages_list'),
+            Category.PROCESS_SYSTEM_INTEGRATION : reverse('processmap:process'),
+        }
+        return urls.get(name, reverse('home'))
 
 
 class Topic (models.Model):

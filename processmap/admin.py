@@ -1,3 +1,4 @@
 from django.contrib import admin
+from processmap.models import MapAreaLink
 
-# Register your models here.
+admin.site.register(MapAreaLink)

@@ -10,19 +10,23 @@ from pages.forms import PageCreateForm, SectionCreateForm, SectionInlineFormSet,
 
 
 def programmer_pages_list(request):
-	return _render_pages_list(request, Category.SOFTWARE_DEVELOPMENT)
+	context = _get_pages_list_context(Category.SOFTWARE_DEVELOPMENT)
+	return render(request, 'pages/pages_list.html', context)
 
 def constructor_pages_list(request):
-	return _render_pages_list(request, Category.CONSTRUCTION)
+	context = _get_pages_list_context(Category.CONSTRUCTION)
+	return render(request, 'pages/pages_list.html', context)
 
 def project_manager_pages_list(request):
-	return _render_pages_list(request, Category.PROJECT_MANAGMENT)
+	context = _get_pages_list_context(Category.PROJECT_MANAGMENT)
+	return render(request, 'pages/pages_list.html', context)
 
 def circuit_engineer_pages_list(request):
-	return _render_pages_list(request, Category.CIRCUIT_ENGINEERING)
+	context = _get_pages_list_context(Category.CIRCUIT_ENGINEERING)
+	return render(request, 'pages/pages_list.html', context)
 
 
-def _render_pages_list(request, category):
+def _get_pages_list_context(category):
 	category = get_object_or_404(Category, name=category)
 
 	topics = {}
@@ -40,7 +44,7 @@ def _render_pages_list(request, category):
 		'topics':topics, 
 		'contents': _get_table_of_contents(active_category=category.name)
 		}
-	return render(request, 'pages/pages_list.html', context)
+	return context
 
 
 def _get_table_of_contents(active_category=None):
@@ -49,9 +53,9 @@ def _get_table_of_contents(active_category=None):
 	for c in categories:
 		cat = {}
 		cat['name'] = c.get_name_display()
-		cat['url'] = _get_category_url(c.name)
+		cat['url'] = c.get_url()
 		cat['topics'] = []
-		cat['active'] = cat['name'] == active_category
+		cat['active'] = c.name == active_category
 
 		topics = Topic.objects.order_by('order')
 		for t in topics:
@@ -73,20 +77,7 @@ def _get_table_of_contents(active_category=None):
 		contents.append(cat)
 	return contents
 
-
-def _get_category_url(category_name=None):
-	if category_name == Category.SOFTWARE_DEVELOPMENT:
-		return reverse('pages:programmer_pages_list')
-	elif category_name == Category.CONSTRUCTION:
-		return reverse('pages:constructor_pages_list')
-	elif category_name == Category.PROJECT_MANAGMENT:
-		return reverse('pages:project_manager_pages_list')
-	elif category_name == Category.CIRCUIT_ENGINEERING:
-		return reverse('pages:circuit_engineer_pages_list')
-	else:
-		return reverse('home')
  
-
 def page_detail(request, id):
 	page = get_object_or_404(Page, pk=id)
 	category = page.category

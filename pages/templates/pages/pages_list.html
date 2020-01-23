@@ -5,49 +5,7 @@
 
 
 {% block content %}
-	<div class="row">
-
-		{% include 'pages/contents_bar.html' with contents=contents %}
-
-		<div class="col">
-		{% if topics %}
-			{% for topic, pages in topics.items %}
-				<ul class="w3-ul mt-3">
-					<li class="w3-light-grey w3-text-dark-grey py-0" style="padding-top: 2px; padding-bottom: 2px;">
-						<h2 class="w3-xlarge my-1" >{{ topic }}</h2>
-					</li>
-					{% for p in pages %}
-						<li class="w3-text-indigo w3-hover-text-blue p-1">
-							<div class="d-flex">
-								<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;" class="align-self-center">{{ p.name }}</a>
-								<button class="fas fa-share-alt btn btn-outline-info ml-auto btn-sm" onclick="copyLink('{{ request.scheme }}://{{ request.get_host }}{% url 'pages:detail' p.id %}')" title='Копировать ссылку'></button>
-								{% if perms.pages.change_page %}
-								<a href="{% url 'pages:delete_page' p.id %}?next={{request.path}}" class="fas fa-trash-alt btn btn-outline-danger btn-sm ml-3" title='Удалить страницу'></a>
-								{% endif %}
-							</div>
-						</li>
-				 	{% endfor %}
-				</ul>
-			{% endfor %}
-
-			{% if perms.pages.change_page %}
-			<div class="d-flex justify-content-end mt-4 mb-4">
-				<a class="btn btn-outline-primary" href="{% url 'pages:create_page'%}">Создать статью</a>
-			</div>
-			{% endif %}
-
-		{% else %}
-			<p class="pt-4">
-				<span class="text-dark py-2">В данном разделе еще нет статей.</span>
-				{% if perms.pages.change_page %}
-				<a class="btn btn-outline-primary ml-4" href="{% url 'pages:create_page'%}">Создать статью</a>
-				{% endif %}	
-			</p>
-			<hr>
-		{% endif %}
-		</div>
-	
-	</div>
+	{% include 'pages/pages_list_content.html' %}
 {% endblock %}
 
 

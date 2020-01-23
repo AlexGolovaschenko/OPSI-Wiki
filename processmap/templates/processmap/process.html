@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load processmap_filters %}
+
 
 {% block content_max_width %} 1500px; {% endblock %}
 {% block alert_max_width %} 1500px; {% endblock %}
@@ -15,32 +17,36 @@
 		</div>
 	</div>
 	<map name="process-map">
-	    <area target="" href="#" alt="Скрининг" title="Скрининг" coords="19,83,220,107" shape="rect">
-	    <area target="" href="#" alt="Сбор информации" title="Сбор информации" coords="17,137,143,163" shape="rect">
-	    <area target="" href="#" alt="Анализ" title="Анализ" coords="149,137,215,162" shape="rect">
-	    <area target="" href="#" alt="Исследование рынка" title="Исследование рынка" coords="19,6,873,55" shape="rect">
-	    <area target="" href="#" alt="Разработка концепции" title="Разработка концепции" coords="250,83,495,108" shape="rect">
-	    <area target="" href="#" alt="Выбор концепции" title="Выбор концепции" coords="249,138,374,162" shape="rect">
-	    <area target="" href="#" alt="Планирование" title="Планирование" coords="380,137,493,162" shape="rect">
-	    <area target="" href="#" alt="Разработка прототипа" title="Разработка прототипа" coords="521,82,756,107" shape="rect">
-	    <area target="" href="#" alt="ТЗ" title="ТЗ" coords="520,137,558,162" shape="rect">
-	    <area target="" href="#" alt="КД" title="КД" coords="541,170,581,194" shape="rect">
-	    <area target="" href="#" alt="ПО" title="ПО" coords="561,201,610,227" shape="rect">
-	    <area target="" href="#" alt="Документация" title="Документация" coords="594,233,661,258" shape="rect">
-	    <area target="" href="#" alt="Сборка прототипа" title="Сборка прототипа" coords="585,262,711,288" shape="rect">
-	    <area target="" href="#" alt="Подготовка производства" title="Подготовка производства" coords="598,295,785,321" shape="rect">
-	    <area target="" href="#" alt="Альфа-тестирование" title="Альфа-тестирование" coords="715,329,807,365" shape="rect">
-	    <area target="" href="#" alt="Бета-тестирование" title="Бета-тестирование" coords="787,373,879,410" shape="rect">
-	    <area target="" href="#" alt="Создание продукта" title="Создание продукта" coords="890,8,1083,55" shape="rect">
-	    <area target="" href="#" alt="Разработка продукта" title="Разработка продукта" coords="891,82,1058,108" shape="rect">
-	    <area target="" href="#" alt="Уточнение ТЗ" title="Уточнение ТЗ" coords="892,134,984,159" shape="rect">
-	    <area target="" href="#" alt="Доработка КД" title="Доработка КД" coords="930,167,1022,193" shape="rect">
-	    <area target="" href="#" alt="Обеспечение производства" title="Обеспечение производства" coords="994,201,1085,238" shape="rect">
-	    <area target="" href="#" alt="Вывод на рынок и продажи" title="Вывод на рынок и продажи" coords="1114,8,1259,57" shape="rect">
-	    <area target="" href="#" alt="Итерационная доработка" title="Итерационная доработка" coords="1114,71,1259,108" shape="rect">
-	    <area target="" href="#" alt="Поддержка" title="Поддержка" coords="1114,122,1260,146" shape="rect">
-	    <area target="" href="#" alt="Вывод с рынка" title="Вывод с рынка" coords="1287,6,1434,57" shape="rect">
+		{{ 'Скрининг'				|get_map_area:"19,83,220,107"	|safe }}
+		{{ 'Сбор информации'		|get_map_area:"17,137,143,163"	|safe }}
+		{{ 'Анализ'					|get_map_area:"149,137,215,162"	|safe }}
+		{{ 'Исследование рынка'		|get_map_area:"19,6,873,55"		|safe }}
+		{{ 'Разработка концепции'	|get_map_area:"250,83,495,108"	|safe }}
+		{{ 'Выбор концепции'		|get_map_area:"249,138,374,162"	|safe }}
+		{{ 'Планирование'			|get_map_area:"380,137,493,162"	|safe }}
+		{{ 'Разработка прототипа'	|get_map_area:"521,82,756,107"	|safe }}
+		{{ 'ТЗ'						|get_map_area:"520,137,558,162"	|safe }}
+		{{ 'КД'						|get_map_area:"541,170,581,194"	|safe }}
+		{{ 'ПО'						|get_map_area:"561,201,610,227"	|safe }}
+		{{ 'Документация'			|get_map_area:"594,233,661,258"	|safe }}
+		{{ 'Сборка прототипа'		|get_map_area:"585,262,711,288"	|safe }}
+		{{ 'Подготовка производства'|get_map_area:"598,295,785,321"	|safe }}
+		{{ 'Альфа-тестирование'		|get_map_area:"715,329,807,365"	|safe }}
+		{{ 'Бета-тестирование'		|get_map_area:"787,373,879,410"	|safe }}
+		{{ 'Создание продукта'		|get_map_area:"890,8,1083,55"	|safe }}
+		{{ 'Разработка продукта'	|get_map_area:"891,82,1058,108"	|safe }}
+		{{ 'Уточнение ТЗ'			|get_map_area:"892,134,984,159"	|safe }}
+		{{ 'Доработка КД'			|get_map_area:"930,167,1022,193"|safe }}
+		{{ 'Обеспечение производства'|get_map_area:"994,201,1085,238"|safe }}
+		{{ 'Вывод на рынок и продажи'|get_map_area:"1114,8,1259,57"	|safe }}
+		{{ 'Итерационная доработка'	|get_map_area:"1114,71,1259,108"|safe }}
+		{{ 'Поддержка'				|get_map_area:"1114,122,1260,146"|safe }}
+		{{ 'Вывод с рынка'			|get_map_area:"1287,6,1434,57"	|safe }}
 	</map>
+
+
+	{% include 'pages/pages_list_content.html' %}
+
 </div>
 {% endblock %}
 
