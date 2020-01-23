@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class ProcessmapConfig(AppConfig):
     name = 'processmap'
-    cerbosename = 'Процесс "Системная интеграция"'
+    verbose_name = 'Процесс "Системная интеграция"'

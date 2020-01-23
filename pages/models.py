@@ -65,7 +65,7 @@ class Page(models.Model):
     short_description = RichTextField(verbose_name='Краткое описание', blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.category) + ': ' + self.name
 
     class Meta():
         verbose_name = "Страница"
