@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content_max_width %} 1500px; {% endblock %}
+{% block alert_max_width %} 1500px; {% endblock %}
+
+{% block content %}
+<div class="my-3">
+	<h1 class="w3-light-grey text-dark p-2">Процесс "Системная интеграция"</h1>
+
+	<div class="w3-border">
+		<div class="map" style="display: block; background-image: url(&quot;{% static 'processmap/img/process.jpg' %}&quot;); background-size: contain; position: relative; padding: 0px; width: 1455px; height: 492px;">
+			<canvas style="width: 1455px; height: 492px; position: absolute; left: 0px; top: 0px; padding: 0px; border: 0px;" height="492px" width="1455px"></canvas>
+			<img class="map maphilighted" src="{% static 'processmap/img/process.jpg' %}" width="1455px" height="492px" usemap="#process-map" style="opacity: 1e-10; position: absolute; left: 0px; top: 0px; padding: 0px; border: 0px;">
+		</div>
+	</div>
+	<map name="process-map">
+	    <area target="" href="#" alt="Скрининг" title="Скрининг" coords="19,83,220,107" shape="rect">
+	    <area target="" href="#" alt="Сбор информации" title="Сбор информации" coords="17,137,143,163" shape="rect">
+	    <area target="" href="#" alt="Анализ" title="Анализ" coords="149,137,215,162" shape="rect">
+	    <area target="" href="#" alt="Исследование рынка" title="Исследование рынка" coords="19,6,873,55" shape="rect">
+	    <area target="" href="#" alt="Разработка концепции" title="Разработка концепции" coords="250,83,495,108" shape="rect">
+	    <area target="" href="#" alt="Выбор концепции" title="Выбор концепции" coords="249,138,374,162" shape="rect">
+	    <area target="" href="#" alt="Планирование" title="Планирование" coords="380,137,493,162" shape="rect">
+	    <area target="" href="#" alt="Разработка прототипа" title="Разработка прототипа" coords="521,82,756,107" shape="rect">
+	    <area target="" href="#" alt="ТЗ" title="ТЗ" coords="520,137,558,162" shape="rect">
+	    <area target="" href="#" alt="КД" title="КД" coords="541,170,581,194" shape="rect">
+	    <area target="" href="#" alt="ПО" title="ПО" coords="561,201,610,227" shape="rect">
+	    <area target="" href="#" alt="Документация" title="Документация" coords="594,233,661,258" shape="rect">
+	    <area target="" href="#" alt="Сборка прототипа" title="Сборка прототипа" coords="585,262,711,288" shape="rect">
+	    <area target="" href="#" alt="Подготовка производства" title="Подготовка производства" coords="598,295,785,321" shape="rect">
+	    <area target="" href="#" alt="Альфа-тестирование" title="Альфа-тестирование" coords="715,329,807,365" shape="rect">
+	    <area target="" href="#" alt="Бета-тестирование" title="Бета-тестирование" coords="787,373,879,410" shape="rect">
+	    <area target="" href="#" alt="Создание продукта" title="Создание продукта" coords="890,8,1083,55" shape="rect">
+	    <area target="" href="#" alt="Разработка продукта" title="Разработка продукта" coords="891,82,1058,108" shape="rect">
+	    <area target="" href="#" alt="Уточнение ТЗ" title="Уточнение ТЗ" coords="892,134,984,159" shape="rect">
+	    <area target="" href="#" alt="Доработка КД" title="Доработка КД" coords="930,167,1022,193" shape="rect">
+	    <area target="" href="#" alt="Обеспечение производства" title="Обеспечение производства" coords="994,201,1085,238" shape="rect">
+	    <area target="" href="#" alt="Вывод на рынок и продажи" title="Вывод на рынок и продажи" coords="1114,8,1259,57" shape="rect">
+	    <area target="" href="#" alt="Итерационная доработка" title="Итерационная доработка" coords="1114,71,1259,108" shape="rect">
+	    <area target="" href="#" alt="Поддержка" title="Поддержка" coords="1114,122,1260,146" shape="rect">
+	    <area target="" href="#" alt="Вывод с рынка" title="Вывод с рынка" coords="1287,6,1434,57" shape="rect">
+	</map>
+</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ block.super }}
+
+<!-- Add maphilight plugin -->
+<script type="text/javascript" src="{% static 'processmap/js/jquery.maphilight.min.js' %}"></script>
+
+<!-- Activate maphilight plugin -->
+<script type="text/javascript">$(function() {
+        $('.map').maphilight();
+    });
+</script>
+{% endblock %}

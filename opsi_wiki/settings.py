@@ -33,7 +33,8 @@ ALLOWED_HOSTS = ['localhost']
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
-    'partners.apps.PartnersConfig', 
+    'partners.apps.PartnersConfig',
+    'processmap.apps.ProcessmapConfig', 
     'crispy_forms',  
     'ckeditor',
     'django.contrib.admin',
