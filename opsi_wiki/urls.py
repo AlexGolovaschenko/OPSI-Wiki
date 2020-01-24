@@ -13,6 +13,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('partners/', include('partners.urls')),
     path('process/', include('processmap.urls')),
+    path('library/', views.library, name='library'),
+    path('library/files/', include('fileslibrary.urls')),
 ]
 
 if settings.DEBUG:

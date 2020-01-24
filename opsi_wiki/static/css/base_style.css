@@ -9,6 +9,31 @@
 	height: 160px;
 }
 
+
+.hover-card {
+	box-shadow: 0px 0px; 
+	transition: box-shadow 200ms; 
+}
+.hover-card:hover {
+	box-shadow: 1px 1px 6px #2196F3;
+}
+
+.hover-card .hover-card-header{
+	transition: color 200ms; 
+}
+.hover-card:hover .hover-card-header{
+	color: #2196F3 !important;
+}
+
+.hover-card hr {
+	transition: border-color 200ms, box-shadow 200ms; 
+}
+.hover-card:hover hr {
+	border-color: #2196F3 !important;
+	box-shadow: 1px 1px 6px #2196F3;
+}
+
+
 hr {
 	border-color: #ddd !important;
 }

@@ -6,3 +6,5 @@ def home(request):
 def about(request):
 	return render(request, 'opsi_wiki/about.html')
 
+def library(request):
+	return render(request, 'opsi_wiki/library.html')
