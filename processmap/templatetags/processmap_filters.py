@@ -1,5 +1,6 @@
 from django import template
 from django.template.defaultfilters import stringfilter
+from django.utils.safestring import mark_safe
 from django.urls import reverse
 from processmap.models import MapAreaLink
 
@@ -30,4 +31,4 @@ def get_map_area(area_name, coords):
         area = f'<area target="" href="{url}" alt="{area_name}" title="{area_name}" coords="{coords}" shape="rect">'
     except: 
         area = ''
-    return area
+    return mark_safe(area)

@@ -1,38 +1,30 @@
 {% extends 'base.html' %}
+{% load fileslibrary_extras %}
+
 
 {% block content %}
-<div class="my-3">
-	<h2 class="w3-large w3-light-grey p-1 px-2">Topic name</h2>
-	<ul style="padding-left: 0px; list-style-type: none;" class="w3-ul">
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
 
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
+	{% for section in contents %}
+	<div class="my-3">
+		<h2 class="w3-large w3-light-grey p-1 px-2">{{section.topic}}</h2>
+		<ul style="padding-left: 0px; list-style-type: none;" class="w3-ul">
+			{% for file in section.files %}
+				<li class="p-0 px-2">
+					{{ file | file_icon }}
+					<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">{{file.file_name}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% empty %}
+		<p class="pt-4">
+			<span class="text-dark py-2">В данном разделе пока еще нет документов.</span>
+			{% if perms.pages.change_page %}
+			<a class="btn btn-outline-primary ml-4" href="#">Добавить документ</a>
+			{% endif %}	
+		</p>
+		<hr>
+	{% endfor %}
 
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
 
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
-
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
-
-		<li class="p-0 px-2">
-			<i class="far fa-file-alt pr-2"></i>
-			<a href="#" style="text-decoration: none" class="w3-text-indigo w3-hover-text-blue">gost_24_104_85</a>
-		</li>
-	</ul>
-</div>
 {% endblock %}
