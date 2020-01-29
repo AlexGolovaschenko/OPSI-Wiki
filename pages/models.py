@@ -90,7 +90,7 @@ def file_storage_path(instance, filename):
 
 class File(models.Model):
     page = models.ForeignKey(Page, verbose_name='Страница', on_delete=models.CASCADE)
-    upload = models.FileField(verbose_name='Файл', upload_to=file_storage_path)
+    upload = models.FileField(verbose_name='Файл', upload_to=file_storage_path, max_length=500)
     alter_name = models.CharField(verbose_name='Переименовать файл', max_length=200, blank=True)
     comment = models.CharField(verbose_name='Комментарий', max_length=200, blank=True)
 

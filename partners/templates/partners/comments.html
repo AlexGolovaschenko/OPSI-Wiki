@@ -1,0 +1,43 @@
+
+{% if comments or user.is_authenticated %}
+	<div class="w3-content" style="max-width: 600px;">
+		<h3 class="w3-border-bottom">Отзывы</h3>
+
+		{% if comments %}
+			{% for c in comments %}
+				<div class="card w3-pale-green my-3">
+					<div class="d-flex">
+						<strong class="p-1 px-3">{{c.author.username}}</strong>
+						<small class="p-1 px-3 ml-auto align-self-center">{{c.pub_date}}</small>
+
+						{% if perms.pages.change_page or c.author == user %}
+							<a href="{% url 'partners:delete_comment' c.id %}?next={{request.path}}" class="fas fa-trash-alt btn btn-outline-danger btn-sm align-self-center mx-2" title='Удалить отзыв'></a>
+						{% endif %}
+
+					</div>
+					<hr class="m-0">
+					<div class="p-1 px-3">
+						<p class="m-0 p-0">{{c.text|linebreaks}}</p> 
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+		{% if user.is_authenticated %}
+			<p>Оставить отзыв:</p>
+			<div class="my-3">
+				<form action="{% url 'partners:leave_comment' %}" method="POST">
+					{% csrf_token %}
+					<input type='hidden' name="user" value="{{user}}"></input>
+					<input type='hidden' name="object_name" value="{{object.class_name}}"></input>
+					<input type='hidden' name="object_id" value="{{object.id}}"></input>
+					<input type='hidden' name="next" value="{{request.path}}"></input>
+
+					<textarea name="text" class="form-control" required placeholder="Отзыв..." rows="4"></textarea>
+					<button class="btn btn-outline-success mt-3" type="submit">Оставить отзыв</button>
+				</form>
+			</div>
+		{% endif %}
+
+	</div>
+{% endif %}

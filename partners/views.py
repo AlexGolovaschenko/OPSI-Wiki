@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
-from partners.models import Contractor, Supplier
+from django.contrib.auth.decorators import permission_required, login_required
+from partners.models import Contractor, Supplier, Comment
 from partners.forms import ContractorUpdateForm, SupplierUpdateForm
 
 
@@ -18,13 +19,15 @@ def partners_list(request):
 
 def contractor_detail(request, id):
 	partner = get_object_or_404(Contractor, pk = id)
-	context = {'company': partner}
+	comments = partner.comments.all()
+	context = {'company': partner, 'comments': comments}
 	return render(request, 'partners/contractor_detail.html', context)
 
 
 def supplier_detail(request, id):
 	partner = get_object_or_404(Supplier, pk = id)
-	context = {'company': partner}
+	comments = partner.comments.all()
+	context = {'company': partner, 'comments': comments}
 	return render(request, 'partners/supplier_detail.html', context)
 
 
@@ -102,3 +105,39 @@ def delete_supplier(request, id):
 	company.delete()
 	messages.info(request, f'Поставщик {company_name} удален!')
 	return redirect('partners:partners_list')
+
+
+
+@login_required
+def leave_comment(request):
+	try:
+		object_name = request.POST['object_name']
+		object_id = request.POST['object_id']
+		if Contractor.__name__ == object_name:
+			company = Contractor.objects.get(id=object_id)
+		elif Supplier.__name__ == object_name:
+			company = Supplier.objects.get(id=object_id)
+		else:
+			raise ValueError
+	except:
+		raise Http404("Компания не найдена")
+
+	Comment.objects.create(author = request.user, text = request.POST['text'], content_object=company)
+
+	try:
+		next = request.POST['next']
+		return HttpResponseRedirect(next) 
+	except:
+		return HttpResponseRedirect( reverse('partners:partners_list') ) 
+
+
+@login_required
+def delete_comment(request, id):
+	comment = get_object_or_404(Comment, pk=id)
+	if request.user.has_perm('pages.change_page') or comment.author == request.user:
+		comment.delete()
+	else:
+		messages.warning(request, f'Не достаточно прав для удаления комментария!')
+
+	next = request.GET.get('next', reverse('partners:partners_list'))
+	return HttpResponseRedirect(next)
