@@ -3,10 +3,19 @@ import os
 
 
 class Topic(models.Model):
+	REGULATORY_DOCUMENTS = 'RD'
+	ARTICLES = 'AR'
+
+	TOPIC_CATEGORI_CHOICES = [
+		(REGULATORY_DOCUMENTS, 'Нормативная документация'),
+		(ARTICLES, 'Литература'),
+	]
+
+	category = models.CharField(max_length=10, choices=TOPIC_CATEGORI_CHOICES, verbose_name='Категория')
 	name = models.CharField(max_length=100, verbose_name='Название')
 
 	def __str__(self):
-		return self.name
+		return self.get_category_display() + ': ' + self.name
 
 	class Meta:
 		verbose_name = 'Тема'

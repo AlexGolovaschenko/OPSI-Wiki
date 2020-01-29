@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load fileslibrary_extras %}
+
+
+{% block content %}
+
+	{% if contents %}
+		{% for section in contents %}
+		<div class="my-3">
+			<h2 class="w3-large w3-light-grey p-1 px-2">{{section.topic}}</h2>
+			<ul style="padding-left: 0px; list-style-type: none;" class="w3-ul">
+				{% for file in section.files %}
+					<li class="p-1">
+						<div class="d-flex">
+							{{ file | file_icon }}
+							<a href="{{file|file_dispaly_url:request}}" style="text-decoration: none" class="align-self-center">{{file.file_name}}</a>
+							
+							<span class="ml-auto"></span>
+							{% if file.description %}
+								<button class="btn-toggle-help-collapse fas fa-question btn btn-outline-info btn-sm ml-2" data-toggle="collapse" data-target="#id_help_collapse_item_{{ forloop.parentloop.counter }}{{ forloop.counter }}" title='Подробней'></button>
+							{% endif %}
+							<a class="fas fa-download btn btn-outline-info btn-sm ml-2" title='Загрузить' href="{{ file.upload.url }}" download></a>
+							<button class="fas fa-share-alt btn btn-outline-info btn-sm ml-2" onclick="copyLink('{{ request.scheme }}://{{ request.get_host }}{{ file.upload.url }}')" title='Копировать ссылку'></button>
+							{% if perms.pages.change_page %}
+								<a href="{% url 'fileslibrary:edit_file' file.id %}?next={{request.path}}" class="fas fa-pencil-alt btn btn-outline-primary btn-sm ml-4" title='Редактировать'></a>
+								<a href="{% url 'fileslibrary:delete_file' file.id %}?next={{request.path}}" class="fas fa-trash-alt btn btn-outline-danger btn-sm ml-2" title='Удалить документ'></a>
+							{% endif %}
+						</div>
+						{% if file.description %}
+							<div class="help-collapse collapse" id="id_help_collapse_item_{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+								<p class="alert alert-light m-0 my-1 p-1 px-3">{{file.description}}</p>
+							</div>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endfor %}
+
+		{% if perms.pages.change_page %}
+		<div class="d-flex justify-content-end my-4">
+			<a class="btn btn-outline-primary ml-4" href="{% url 'fileslibrary:add_topic' %}?next={{request.path}}">Создать раздел</a>
+			<a class="btn btn-outline-primary ml-4" href="{% url 'fileslibrary:add_file' %}?next={{request.path}}">Добавить документ</a>
+		</div>
+		{% endif %}
+
+	{% else %}
+		<p class="pt-4">
+			<span class="text-dark py-2">В данном разделе пока еще нет документов.</span>
+			{% if perms.pages.change_page %}
+				<a class="btn btn-outline-primary ml-4" href="{% url 'fileslibrary:add_topic' %}?next={{request.path}}">Создать раздел</a>
+				<a class="btn btn-outline-primary ml-4" href="{% url 'fileslibrary:add_file' %}?next={{request.path}}">Добавить документ</a>
+			{% endif %}	
+		</p>
+		<hr>
+	{% endif %}
+
+	<script>
+		jQuery('button.btn-toggle-help-collapse').click( function(e) {
+		    jQuery('.help-collapse.collapse').collapse('hide');
+		});
+	</script>
+
+{% endblock %}

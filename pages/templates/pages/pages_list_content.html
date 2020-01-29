@@ -10,7 +10,7 @@
 					<h2 class="w3-xlarge my-1" >{{ topic }}</h2>
 				</li>
 				{% for p in pages %}
-					<li class="w3-text-indigo w3-hover-text-blue p-1">
+					<li class="p-1">
 						<div class="d-flex">
 							<a href="{% url 'pages:detail' p.id %}" style="text-decoration: none;" class="align-self-center">{{ p.name }}</a>
 							<button class="fas fa-share-alt btn btn-outline-info ml-auto btn-sm" onclick="copyLink('{{ request.scheme }}://{{ request.get_host }}{% url 'pages:detail' p.id %}')" title='Копировать ссылку'></button>
