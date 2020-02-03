@@ -15,7 +15,7 @@ class Profile(models.Model):
 		verbose_name_plural = 'Профили'
 
 	def save(self, *args, **kwargs):
-		super().save()
+		super().save(*args, **kwargs)
 
 		img = Image.open(self.image.path)
 

@@ -42,8 +42,8 @@ class Contractor(models.Model):
 		] )
 	comments = GenericRelation(Comment, related_query_name='comments')
 
-	def save(self):
-		super().save()
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		icon = Image.open(self.icon.path)
 		if icon.height > 300 or icon.width > 300:
 			output_size = (300, 300)
@@ -74,8 +74,8 @@ class Supplier(models.Model):
 		] )	
 	comments = GenericRelation(Comment, related_query_name='comments')
 
-	def save(self):
-		super().save()
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		icon = Image.open(self.icon.path)
 		if icon.height > 300 or icon.width > 300:
 			output_size = (300, 300)
