@@ -36,7 +36,7 @@ def file_icon(file):
 def file_dispaly_url(file, request):
 	url = f'{request.scheme}://{request.get_host()}{file.upload.url}'
 	if file.file_extension() in ('ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'):
-		url = f'http://view.officeapps.live.com/op/view.aspx?src={url}'
-		# url = f'https://docs.google.com/viewer?url={url}' # работает через раз но поддерживает на много больше форматов
+		# url = f'http://view.officeapps.live.com/op/view.aspx?src={url}'
+		url = f'https://docs.google.com/viewer?url={url}' # работает через раз но поддерживает на много больше форматов
 
 	return url
