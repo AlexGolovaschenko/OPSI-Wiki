@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 # Create your views here.
 def creator(request):
@@ -7,5 +8,6 @@ def creator(request):
 def creator_with_radius(request):
 	return render(request, 'imagemap/index.html', context={'radius': True})
 
+@xframe_options_sameorigin
 def iframe_10442(request):
 	return render(request, 'imagemap/10442.html')
