@@ -38,5 +38,5 @@ def file_dispaly_url(file, request):
 	if file.file_extension() in ('ppt', 'pptx', 'doc', 'docx', 'xls', 'xlsx'):
 		url = f'http://view.officeapps.live.com/op/view.aspx?src={url}'
 		# url = f'https://docs.google.com/viewer?url={url}' # работает через раз но поддерживает на много больше форматов
-
+		# https://docs.google.com/a/nasonline/viewer?url=http://www.nasonline.org/publications/biographical-memoirs/memoir-pdfs/einstein-albert.pdf
 	return url

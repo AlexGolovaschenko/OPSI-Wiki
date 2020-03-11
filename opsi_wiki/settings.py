@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'partners.apps.PartnersConfig',
     'processmap.apps.ProcessmapConfig',
     'fileslibrary.apps.FileslibraryConfig', 
+    'imagemap.apps.ImagemapConfig', 
     'crispy_forms',  
     'ckeditor',
     'django.contrib.admin',
@@ -165,7 +166,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'users:login'
 
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 # Load local settings

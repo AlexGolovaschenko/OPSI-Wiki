@@ -14,6 +14,7 @@ urlpatterns = [
     path('partners/', include('partners.urls')),
     path('process/', include('processmap.urls')),
     path('library/', include('fileslibrary.urls')),
+    path('image-map-creator/', include('imagemap.urls')),
 ]
 
 if settings.DEBUG:
